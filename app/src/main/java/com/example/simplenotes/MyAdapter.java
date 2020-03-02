@@ -51,7 +51,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         void onNoteClicked(int position);
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView title;
         private OnNoteListener onNoteListener;
