@@ -2,6 +2,7 @@ package com.example.simplenotes;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -16,11 +17,14 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteListener {
 
+    private List<String> noteNames = new ArrayList<>();
     private RecyclerView rV_notesList;
-    private ArrayList<String> testStrings = new ArrayList<>();
+    private MyAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,15 +35,10 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
         MaterialToolbar toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
 
-        //** Create notes list **************************************
-        // Set testStrings
-        for (int i = 0; i < 12; i++) {
-            testStrings.add("Title " + (i + 1));
-        }
-
+        //** Create RecyclerView ************************************
         // Create list
         rV_notesList = findViewById(R.id.rV_notesList);
-        MyAdapter myAdapter = new MyAdapter(this, testStrings.toArray(new String[0]), this);
+        myAdapter = new MyAdapter(this, noteNames, this);
         rV_notesList.setAdapter(myAdapter);
         rV_notesList.setLayoutManager(new LinearLayoutManager(rV_notesList.getContext()));
 
@@ -47,9 +46,6 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
         DividerItemDecoration itemDecoration = new DividerItemDecoration(rV_notesList.getContext(),
                 LinearLayout.VERTICAL);
         rV_notesList.addItemDecoration(itemDecoration);
-
-        //** Fab ****************************************************
-        FloatingActionButton fab = findViewById(R.id.fAB_newNote);
     }
 
     @Override
@@ -57,6 +53,13 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+//        MyAdapter myAdapter = new MyAdapter(rV_notesList.getContext(), noteNames, this);
+//        rV_notesList.setAdapter(myAdapter);
     }
 
     @Override
@@ -68,6 +71,22 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
 
     public void newNote(View view) {
         Intent intent = new Intent(this, NoteActivity.class);
+
+        //** Find a new name ****************************************
+        int i = 1;
+        String name = "Note ";
+
+        while (noteNames.contains(name + i)) {
+            i++;
+        }
+
+        //***********************************************************
+
+        noteNames.add(0, name += i);
+
+        intent.putExtra("TITLE", name);
         startActivity(intent);
+
+        myAdapter.notifyItemInserted(0);
     }
 }

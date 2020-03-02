@@ -2,6 +2,7 @@ package com.example.simplenotes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -9,7 +10,8 @@ import android.view.MenuInflater;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class NoteActivity extends AppCompatActivity {
-    private String noteName = "Placeholder";
+
+    private String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +20,17 @@ public class NoteActivity extends AppCompatActivity {
 
         MaterialToolbar toolbar = findViewById(R.id.toolbar_notes);
         setSupportActionBar(toolbar);
-        setTitle(noteName);
+
+        Intent in = getIntent();
+        savedInstanceState = in.getExtras();
+
+        if (savedInstanceState != null) {
+            title = savedInstanceState.get("TITLE").toString();
+        } else {
+            title = "Error";
+        }
+
+        setTitle(title);
     }
 
     @Override
