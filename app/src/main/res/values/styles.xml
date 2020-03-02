@@ -6,13 +6,16 @@
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
         <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
+
         <item name="colorSecondary">@color/secondaryColor</item>
-        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
+<!--        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>-->
+
         <item name="colorError">@color/error</item>
-        <item name="background">@color/backgroundMain</item>
-<!--        <item name="colorSurface">#FFFFFF</item>-->
-        <item name="colorOnPrimary">@color/primaryTextColor</item>
-        <item name="colorOnSecondary">@color/secondaryTextColor</item>
+<!--        <item name="background">@color/primaryLightColor</item>-->
+<!--        <item name="colorSurface">@color/primaryLightColor</item>-->
+
+        <item name="colorOnPrimary">@color/generalText</item>
+        <item name="colorOnSecondary">@color/generalText</item>
     </style>
 
 </resources>

@@ -14,9 +14,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private Context context;
     private String[] titles;
 
-    public MyAdapter(Context context, String[] titles) {
+    private OnNoteListener mOnNoteListener;
+
+    MyAdapter(Context context, String[] titles, OnNoteListener mOnNoteListener) {
         this.context = context;
         this.titles = titles;
+        this.mOnNoteListener = mOnNoteListener;
     }
 
     @NonNull
@@ -24,7 +27,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.notes_list_item, parent, false);
-        return new MyViewHolder(view);
+        return new MyViewHolder(view, mOnNoteListener);
     }
 
     @Override
@@ -37,13 +40,27 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         return titles.length;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public interface OnNoteListener {
+
+        void onNoteClicked(int position);
+    }
+
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView title;
+        private OnNoteListener onNoteListener;
 
-        public MyViewHolder(@NonNull View itemView) {
+        MyViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
             super(itemView);
             title = itemView.findViewById(R.id.tV_noteName);
+
+            this.onNoteListener = onNoteListener;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            onNoteListener.onNoteClicked(getAdapterPosition());
         }
     }
 }
