@@ -37,8 +37,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         String noteTitle = noteNames.get(position);
         holder.title.setText(noteTitle);
-
-
     }
 
     @Override

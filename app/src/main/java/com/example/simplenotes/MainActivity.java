@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -64,9 +65,10 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
 
     @Override
     public void onNoteClicked(int position) {
-//        notes.get(position);
-//        Intent intent = new Intent(this, NoteActivity.class);
-//        startActivity(intent);
+        String selectedNote = noteNames.get(position);
+        Intent intent = new Intent(this, NoteActivity.class);
+        intent.putExtra("TITLE", selectedNote);
+        startActivity(intent);
     }
 
     public void newNote(View view) {
@@ -88,5 +90,10 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
         startActivity(intent);
 
         myAdapter.notifyItemInserted(0);
+
+        //** Create file ********************************************
+//        File path = getFilesDir();
+//        File file = new File(path, name);
+//        intent.putExtra("FILE", file);
     }
 }
