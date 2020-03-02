@@ -7,9 +7,9 @@
     tools:context=".MainActivity">
 
     <include
-        android:id="@+id/toolbar"
+        android:id="@+id/mT_toolbar"
         layout="@layout/toolbar"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,10 +17,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rV_notesList"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/mT_toolbar" />
 </androidx.constraintlayout.widget.ConstraintLayout>
