@@ -1,6 +1,5 @@
 package com.example.simplenotes;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,17 +14,20 @@ import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.ArrayList;
 
-import static java.lang.Thread.sleep;
-
 public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteListener {
 
     private RecyclerView rV_notesList;
-    private String[] testStrings = {"Title1", "Title2", "Title3", "Title4", "Title5", "Title6", "Title7"};
+    private ArrayList<String> testStrings = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Set testStrings
+        for (int i = 0; i < 12; i++) {
+            testStrings.add("Title " + (i + 1));
+        }
 
         // Set toolbar
         MaterialToolbar toolbar = findViewById(R.id.mT_toolbar);
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
 
         // Create notes list
         rV_notesList = findViewById(R.id.rV_notesList);
-        MyAdapter myAdapter = new MyAdapter(this, testStrings, this);
+        MyAdapter myAdapter = new MyAdapter(this, testStrings.toArray(new String[0]), this);
         rV_notesList.setAdapter(myAdapter);
         rV_notesList.setLayoutManager(new LinearLayoutManager(rV_notesList.getContext()));
 
