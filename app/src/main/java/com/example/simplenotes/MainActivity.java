@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -24,16 +25,17 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Set toolbar
+        MaterialToolbar toolbar = findViewById(R.id.mT_toolbar);
+        setSupportActionBar(toolbar);
+
+        //** Create notes list **************************************
         // Set testStrings
         for (int i = 0; i < 12; i++) {
             testStrings.add("Title " + (i + 1));
         }
 
-        // Set toolbar
-        MaterialToolbar toolbar = findViewById(R.id.mT_toolbar);
-        setSupportActionBar(toolbar);
-
-        // Create notes list
+        // Create list
         rV_notesList = findViewById(R.id.rV_notesList);
         MyAdapter myAdapter = new MyAdapter(this, testStrings.toArray(new String[0]), this);
         rV_notesList.setAdapter(myAdapter);
@@ -43,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
         DividerItemDecoration itemDecoration = new DividerItemDecoration(rV_notesList.getContext(),
                 LinearLayout.VERTICAL);
         rV_notesList.addItemDecoration(itemDecoration);
+
+        //** Fab ****************************************************
+        FloatingActionButton fab = findViewById(R.id.fAB_newNote);
     }
 
     @Override
