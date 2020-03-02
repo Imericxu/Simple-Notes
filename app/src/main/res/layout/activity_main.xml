@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <include
-            android:id="@+id/mT_toolbar"
+            android:id="@+id/toolbar_main"
             layout="@layout/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mT_toolbar"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_main"
             tools:itemCount="4"
             tools:listitem="@layout/notes_list_item" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -40,6 +40,7 @@
         android:layout_margin="20dp"
         android:clickable="true"
         android:focusable="true"
+        android:onClick="newNote"
         android:src="@drawable/ic_add_black_24dp" />
 
 </FrameLayout>

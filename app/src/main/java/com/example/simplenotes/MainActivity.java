@@ -1,8 +1,10 @@
 package com.example.simplenotes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
         setContentView(R.layout.activity_main);
 
         // Set toolbar
-        MaterialToolbar toolbar = findViewById(R.id.mT_toolbar);
+        MaterialToolbar toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
 
         //** Create notes list **************************************
@@ -62,5 +64,10 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
 //        notes.get(position);
 //        Intent intent = new Intent(this, NoteActivity.class);
 //        startActivity(intent);
+    }
+
+    public void newNote(View view) {
+        Intent intent = new Intent(this, NoteActivity.class);
+        startActivity(intent);
     }
 }
