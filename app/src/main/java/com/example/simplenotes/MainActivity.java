@@ -1,8 +1,9 @@
 package com.example.simplenotes;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -14,23 +15,30 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-import java.io.File;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteListener {
 
+    private static final String PREFERENCE_KEY = "myAppKey";
+    private static final String EDITOR_KEY = "myNotes";
     private List<String> noteNames = new ArrayList<>();
-    private RecyclerView rV_notesList;
     private MyAdapter myAdapter;
+    private Context context;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        context = getApplicationContext();
+        sharedPreferences = context.getSharedPreferences(PREFERENCE_KEY, Context.MODE_PRIVATE);
+        load();
 
         // Set toolbar
         MaterialToolbar toolbar = findViewById(R.id.toolbar_main);
@@ -38,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
 
         //** Create RecyclerView ************************************
         // Create list
-        rV_notesList = findViewById(R.id.rV_notesList);
+        RecyclerView rV_notesList = findViewById(R.id.rV_notesList);
         myAdapter = new MyAdapter(this, noteNames, this);
         rV_notesList.setAdapter(myAdapter);
         rV_notesList.setLayoutManager(new LinearLayoutManager(rV_notesList.getContext()));
@@ -59,8 +67,6 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
     @Override
     protected void onRestart() {
         super.onRestart();
-//        MyAdapter myAdapter = new MyAdapter(rV_notesList.getContext(), noteNames, this);
-//        rV_notesList.setAdapter(myAdapter);
     }
 
     @Override
@@ -90,10 +96,30 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
         startActivity(intent);
 
         myAdapter.notifyItemInserted(0);
+    }
 
-        //** Create file ********************************************
-//        File path = getFilesDir();
-//        File file = new File(path, name);
-//        intent.putExtra("FILE", file);
+    @Override
+    protected void onPause() {
+        super.onPause();
+        save();
+    }
+
+    private void save() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(noteNames);
+        editor.putString(EDITOR_KEY, json);
+        editor.apply();
+    }
+
+    private void load() {
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString(EDITOR_KEY, null);
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        noteNames = gson.fromJson(json, type);
+
+        if (noteNames == null) {
+            noteNames = new ArrayList<>();
+        }
     }
 }
