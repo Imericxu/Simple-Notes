@@ -23,30 +23,31 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Main screen of app; contains the list of notes. There's a FAB that you can click to create a new note.
+ */
 public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteListener {
 
     private static final String PREFERENCE_KEY = "myAppKey";
     private static final String EDITOR_KEY = "myNotes";
     public static List<String> noteNames = new ArrayList<>();
     private MyAdapter myAdapter;
-    private Context context;
     private SharedPreferences sharedPreferences;
 
-    public static void setNoteName(String text, int index) {
-        noteNames.set(index, text);
-    }
-
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    Lifecycle/System methods
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        context = getApplicationContext();
+        //** Load data **********************************************
+        Context context = getApplicationContext();
         sharedPreferences = context.getSharedPreferences(PREFERENCE_KEY, Context.MODE_PRIVATE);
-
         load();
 
-        // Set toolbar
+        //** Setup toolbar ******************************************
         MaterialToolbar toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
 
@@ -63,6 +64,30 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
         rV_notesList.addItemDecoration(itemDecoration);
     }
 
+    /**
+     * Updates RecyclerView whenever MainActivity is refocused
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        myAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * Saves data when MainActivity loses focus
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        save();
+    }
+
+    /**
+     * Custom android menu
+     *
+     * @param menu the activity's menu
+     * @return if the menu has been created
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -70,17 +95,15 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
         return true;
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-    }
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    Touch interactions
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        myAdapter.notifyDataSetChanged();
-    }
-
+    /**
+     * Opens the corresponding note when it is clicked
+     *
+     * @param position index of note in ArrayList
+     */
     @Override
     public void onNoteClicked(int position) {
         String selectedNote = noteNames.get(position);
@@ -90,6 +113,11 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
         startActivity(intent);
     }
 
+    /**
+     * Creates a new note (called by FAB)
+     *
+     * @param view <code>View</code> that performs action
+     */
     public void newNote(View view) {
         Intent intent = new Intent(this, NoteActivity.class);
 
@@ -114,20 +142,19 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
         myAdapter.notifyItemInserted(0);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        save();
+    /**
+     * Changes a note's name in the ArrayList
+     *
+     * @param text  new name
+     * @param index index of note in ArrayList
+     */
+    public static void setNoteName(String text, int index) {
+        noteNames.set(index, text);
     }
 
-    private void save() {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(noteNames);
-        editor.putString(EDITOR_KEY, json);
-        editor.apply();
-    }
-
+    /**
+     * Loads ArrayList of notes from Shared Preferences
+     */
     private void load() {
         Gson gson = new Gson();
         String json = sharedPreferences.getString(EDITOR_KEY, null);
@@ -137,5 +164,16 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
         if (noteNames == null) {
             noteNames = new ArrayList<>();
         }
+    }
+
+    /**
+     * Saves ArrayList of notes to Shared Preferences
+     */
+    private void save() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(noteNames);
+        editor.putString(EDITOR_KEY, json);
+        editor.apply();
     }
 }
