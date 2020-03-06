@@ -26,12 +26,12 @@ import java.util.List;
 /**
  * Main screen of app; contains the list of notes. There's a FAB that you can click to create a new note.
  */
-public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteListener {
+public class MainActivity extends AppCompatActivity implements NotesAdapter.NoteClickListener {
 
     private static final String PREFERENCE_KEY = "myAppKey";
     private static final String EDITOR_KEY = "myNotes";
     public static List<String> noteNames = new ArrayList<>();
-    private MyAdapter myAdapter;
+    private NotesAdapter notesAdapter;
     private SharedPreferences sharedPreferences;
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
         //** Create RecyclerView ************************************
         // Create list
         RecyclerView rV_notesList = findViewById(R.id.rV_notesList);
-        myAdapter = new MyAdapter(this, noteNames, this);
-        rV_notesList.setAdapter(myAdapter);
+        notesAdapter = new NotesAdapter(this, noteNames, this);
+        rV_notesList.setAdapter(notesAdapter);
         rV_notesList.setLayoutManager(new LinearLayoutManager(rV_notesList.getContext()));
 
         // Add dividers between notes
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
     @Override
     protected void onResume() {
         super.onResume();
-        myAdapter.notifyDataSetChanged();
+        notesAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnNoteL
         startActivity(intent);
         Log.d("ERIC", "Activity started");
 
-        myAdapter.notifyItemInserted(0);
+        notesAdapter.notifyItemInserted(0);
     }
 
     /**

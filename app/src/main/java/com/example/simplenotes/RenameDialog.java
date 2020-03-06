@@ -1,6 +1,6 @@
 package com.example.simplenotes;
 
-import android.app.AlertDialog;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,26 +13,27 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 public class RenameDialog extends AppCompatDialogFragment {
+
     private EditText nameInput;
     private ExampleDialogListener listener;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        Context context = requireContext();
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.rename_dialog, null);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
 
-        builder.setView(view).setTitle("Rename");
+        View view = View.inflate(context, R.layout.rename_dialog, null);
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setTitle("Rename");
+        builder.setView(view);
 
-            }
-        }).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Cancel", null);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String newName = nameInput.getText().toString();
@@ -44,6 +45,7 @@ public class RenameDialog extends AppCompatDialogFragment {
 
         return builder.create();
     }
+
 
     @Override
     public void onAttach(@NonNull Context context) {

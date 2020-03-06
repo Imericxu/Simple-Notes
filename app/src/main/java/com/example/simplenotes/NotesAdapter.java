@@ -9,20 +9,26 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.HashSet;
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+/**
+ * Adapter for displaying the names of notes
+ */
+public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder> {
 
     private Context context;
     private List<String> noteNames;
+    private NoteClickListener noteClickListener;
 
-    private OnNoteListener mOnNoteListener;
-
-    MyAdapter(Context context, List<String> noteNames, OnNoteListener mOnNoteListener) {
+    /**
+     * @param context           context of the class containing the view
+     * @param noteNames         list of note names
+     * @param noteClickListener listener used by the <code>RecyclerView</code>
+     */
+    NotesAdapter(Context context, List<String> noteNames, NoteClickListener noteClickListener) {
         this.context = context;
         this.noteNames = noteNames;
-        this.mOnNoteListener = mOnNoteListener;
+        this.noteClickListener = noteClickListener;
     }
 
     @NonNull
@@ -30,7 +36,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.notes_list_item, parent, false);
-        return new MyViewHolder(view, mOnNoteListener);
+        return new MyViewHolder(view, noteClickListener);
     }
 
     @Override
@@ -44,7 +50,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         return noteNames.size();
     }
 
-    public interface OnNoteListener {
+    public interface NoteClickListener {
 
         void onNoteClicked(int position);
     }
@@ -52,19 +58,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView title;
-        private OnNoteListener onNoteListener;
+        private NoteClickListener noteClickListener;
 
-        MyViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
+        MyViewHolder(@NonNull View itemView, NoteClickListener noteClickListener) {
             super(itemView);
             title = itemView.findViewById(R.id.tV_noteName);
 
-            this.onNoteListener = onNoteListener;
+            this.noteClickListener = noteClickListener;
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            onNoteListener.onNoteClicked(getAdapterPosition());
+            noteClickListener.onNoteClicked(getAdapterPosition());
         }
     }
 }
