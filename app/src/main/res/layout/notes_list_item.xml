@@ -16,7 +16,7 @@
             android:id="@+id/tV_noteName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/catamaran"
+            android:fontFamily="@font/alegreya_sans_medium"
             android:textAlignment="viewStart"
             android:textSize="34sp"
             app:layout_constraintBottom_toBottomOf="parent"

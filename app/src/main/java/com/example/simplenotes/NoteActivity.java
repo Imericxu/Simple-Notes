@@ -26,6 +26,9 @@ public class NoteActivity extends AppCompatActivity implements RenameDialog.Exam
     private EditText note;
     private int index;
 
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    Lifecycle/System methods
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +55,40 @@ public class NoteActivity extends AppCompatActivity implements RenameDialog.Exam
         load();
     }
 
+    /**
+     * Saves note to respective txt file
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        try {
+            save();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Custom options menu
+     *
+     * @param menu NoteActivity's menu
+     * @return if the menu was created
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.note_menu, menu);
+        return true;
+    }
+
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    Data handling
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+    /**
+     * Loads text from respective .txt file
+     */
     private void load() {
         FileInputStream fileInputStream = null;
 
@@ -72,24 +109,11 @@ public class NoteActivity extends AppCompatActivity implements RenameDialog.Exam
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.note_menu, menu);
-        return true;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        try {
-            save();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+    /**
+     * Saves text to respective .txt file
+     *
+     * @throws IOException
+     */
     private void save() throws IOException {
         FileOutputStream fOS = null;
 
@@ -105,6 +129,9 @@ public class NoteActivity extends AppCompatActivity implements RenameDialog.Exam
         }
     }
 
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    Renaming
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
     public void rename(MenuItem item) {
         RenameDialog renameDialog = new RenameDialog();
         renameDialog.show(getSupportFragmentManager(), "Rename Dialog");

@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity implements NotesAdapter.Note
         setContentView(R.layout.activity_main);
 
         //** Load data **********************************************
-        Context context = getApplicationContext();
-        sharedPreferences = context.getSharedPreferences(PREFERENCE_KEY, Context.MODE_PRIVATE);
+        Context applicationContext = getApplicationContext();
+        sharedPreferences = applicationContext.getSharedPreferences(PREFERENCE_KEY, Context.MODE_PRIVATE);
         load();
 
         //** Setup toolbar ******************************************
@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements NotesAdapter.Note
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     Touch interactions
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
     /**
      * Opens the corresponding note when it is clicked
      *
@@ -142,6 +141,9 @@ public class MainActivity extends AppCompatActivity implements NotesAdapter.Note
         notesAdapter.notifyItemInserted(0);
     }
 
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    Data handling
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
     /**
      * Changes a note's name in the ArrayList
      *
