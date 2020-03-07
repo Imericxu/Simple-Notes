@@ -5,8 +5,8 @@
     <color name="primaryDarkColor">#303F9F</color>
 
     <color name="secondaryColor">#FF9800</color>
-<!--    <color name="secondaryLightColor">#85ffff</color>-->
-<!--    <color name="secondaryDarkColor">#00a4b8</color>-->
+    <color name="secondaryDarkColor">#C67600</color>
+    <!--    <color name="secondaryLightColor">#85ffff</color>-->
 
     <color name="error">#FF188C</color>
 

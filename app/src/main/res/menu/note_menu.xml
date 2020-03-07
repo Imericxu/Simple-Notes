@@ -5,4 +5,9 @@
         android:id="@+id/menuItem_rename"
         android:onClick="rename"
         android:title="@string/rename" />
+
+    <item
+        android:id="@+id/menuItem_textAnalysis"
+        android:onClick="analyze"
+        android:title="@string/analyze" />
 </menu>

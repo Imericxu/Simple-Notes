@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tV_wordCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Words:"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/tV_sentenceCount"
+        app:layout_constraintStart_toStartOf="@id/tV_sentenceCount"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/tV_sentenceCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sentences:"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/textView5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tV_wordCount" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/open_sans_semibold"
+        android:textColor="@color/secondaryDarkColor"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tV_wordCount"
+        app:layout_constraintStart_toEndOf="@id/tV_wordCount"
+        app:layout_constraintTop_toTopOf="@+id/tV_wordCount"
+        tools:text="12345678" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/open_sans_semibold"
+        android:textColor="@color/secondaryDarkColor"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tV_sentenceCount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tV_sentenceCount"
+        app:layout_constraintTop_toTopOf="@+id/tV_sentenceCount"
+        tools:text="12345678" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@
 
         <item name="colorOnPrimary">@color/generalText</item>
         <item name="colorOnSecondary">@color/primaryText</item>
+        <item name="android:fontFamily">@font/catamaran</item>
     </style>
 
 </resources>

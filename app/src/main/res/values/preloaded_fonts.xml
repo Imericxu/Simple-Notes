@@ -3,5 +3,6 @@
     <array name="preloaded_fonts" translatable="false">
         <item>@font/alegreya_sans_medium</item>
         <item>@font/catamaran</item>
+        <item>@font/open_sans_semibold</item>
     </array>
 </resources>

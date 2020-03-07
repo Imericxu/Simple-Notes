@@ -129,14 +129,6 @@ public class NoteActivity extends AppCompatActivity implements RenameDialog.Exam
         }
     }
 
-    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-    Renaming
-     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-    public void rename(MenuItem item) {
-        RenameDialog renameDialog = new RenameDialog();
-        renameDialog.show(getSupportFragmentManager(), "Rename Dialog");
-    }
-
     @Override
     public void applyText(String newName) {
         File file = new File(getFilesDir(), title);
@@ -144,5 +136,24 @@ public class NoteActivity extends AppCompatActivity implements RenameDialog.Exam
         title = newName;
         setTitle(title);
         MainActivity.setNoteName(title, index);
+    }
+
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    Touch interactions
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+    /**
+     * Called by menuItem_rename
+     */
+    public void rename(MenuItem item) {
+        RenameDialog renameDialog = new RenameDialog();
+        renameDialog.show(getSupportFragmentManager(), "Rename Dialog");
+    }
+
+    /**
+     * Called by menuItem_analyze
+     */
+    public void analyze(MenuItem item) {
+        String text = note.getText().toString();
     }
 }
