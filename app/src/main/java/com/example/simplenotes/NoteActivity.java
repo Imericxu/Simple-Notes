@@ -18,6 +18,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class NoteActivity extends AppCompatActivity implements RenameDialog.ExampleDialogListener {
@@ -155,5 +157,32 @@ public class NoteActivity extends AppCompatActivity implements RenameDialog.Exam
      */
     public void analyze(MenuItem item) {
         String text = note.getText().toString();
+        int words;
+        int sentences;
+
+        String[] noWhiteSpaceArray = text.toLowerCase().split("\\s+");
+        words = noWhiteSpaceArray.length;
+        List<String> sentenceArray = new ArrayList<>();
+        String[] dontCountList = {"mr.", "mrs.", "ms.", "eg.", "ig."};
+
+        for (String str : noWhiteSpaceArray) {
+            if (str.matches("(.*)[.?!](.*)")) {
+                boolean doAdd = true;
+                for (String abbrev : dontCountList) {
+                    if (str.contains(abbrev)) {
+                        doAdd = false;
+                        break;
+                    }
+                }
+                if (doAdd) {
+                    sentenceArray.add(str);
+                }
+            }
+        }
+
+        sentences = sentenceArray.size();
+
+        TextAnalysisDialog analysisDialog = new TextAnalysisDialog(words, sentences);
+        analysisDialog.show(getSupportFragmentManager(), "Analysis Dialog");
     }
 }

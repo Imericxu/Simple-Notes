@@ -24,32 +24,34 @@
         android:text="Sentences:"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/textView5"
+        app:layout_constraintEnd_toStartOf="@id/tV_sentenceNumber"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tV_wordCount" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tV_wordNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:fontFamily="@font/open_sans_semibold"
         android:textColor="@color/secondaryDarkColor"
         android:textSize="25sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/tV_wordCount"
         app:layout_constraintBottom_toBottomOf="@+id/tV_wordCount"
         app:layout_constraintStart_toEndOf="@id/tV_wordCount"
         app:layout_constraintTop_toTopOf="@+id/tV_wordCount"
         tools:text="12345678" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tV_sentenceNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:fontFamily="@font/open_sans_semibold"
         android:textColor="@color/secondaryDarkColor"
         android:textSize="25sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/tV_sentenceCount"
         app:layout_constraintBottom_toBottomOf="@+id/tV_sentenceCount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tV_sentenceCount"
