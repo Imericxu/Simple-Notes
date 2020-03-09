@@ -42,12 +42,12 @@ public class NoteActivity extends AppCompatActivity implements RenameDialog.Exam
         Intent in = getIntent();
         savedInstanceState = in.getExtras();
 
-        Log.d("Eric", "Checkpoint reached");
+        Log.d(MainActivity.TAG, "Checkpoint reached");
 
         if (savedInstanceState != null) {
-            title = Objects.requireNonNull(savedInstanceState.get("TITLE")).toString();
-            index = savedInstanceState.getInt("INDEX");
-            Log.d("ERIC", "Index received");
+            title = savedInstanceState.getString(MainActivity.getExtraTitle());
+            index = savedInstanceState.getInt(MainActivity.getExtraIndex());
+            Log.d(MainActivity.TAG, "Index received");
         }
 
         note = findViewById(R.id.eT_note);
@@ -122,7 +122,7 @@ public class NoteActivity extends AppCompatActivity implements RenameDialog.Exam
         try {
             fOS = openFileOutput(title, MODE_PRIVATE);
             fOS.write(note.getText().toString().getBytes());
-            Log.d("ERIC", "" + getFilesDir());
+            Log.d(MainActivity.TAG, "" + getFilesDir());
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

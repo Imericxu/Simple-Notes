@@ -28,15 +28,18 @@ import java.util.List;
  */
 public class MainActivity extends AppCompatActivity implements NotesAdapter.NoteClickListener {
 
-    private static final String PREFERENCE_KEY = "myAppKey";
-    private static final String EDITOR_KEY = "myNotes";
+    public static final String TAG = "ERIC";
+    private static final String EXTRA_INDEX = "index";
+    private static final String EXTRA_TITLE = "title";
     public static List<String> noteNames = new ArrayList<>();
+    private final String EDITOR_KEY = "myNotes";
     private NotesAdapter notesAdapter;
     private SharedPreferences sharedPreferences;
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     Lifecycle/System methods
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements NotesAdapter.Note
 
         //** Load data **********************************************
         Context applicationContext = getApplicationContext();
+        String PREFERENCE_KEY = "myAppKey";
         sharedPreferences = applicationContext.getSharedPreferences(PREFERENCE_KEY, Context.MODE_PRIVATE);
         load();
 
@@ -98,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements NotesAdapter.Note
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     Touch interactions
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
     /**
      * Opens the corresponding note when it is clicked
      *
@@ -107,8 +112,8 @@ public class MainActivity extends AppCompatActivity implements NotesAdapter.Note
     public void onNoteClicked(int position) {
         String selectedNote = noteNames.get(position);
         Intent intent = new Intent(this, NoteActivity.class);
-        intent.putExtra("TITLE", selectedNote);
-        intent.putExtra("INDEX", position);
+        intent.putExtra(EXTRA_TITLE, selectedNote);
+        intent.putExtra(EXTRA_INDEX, position);
         startActivity(intent);
     }
 
@@ -132,27 +137,18 @@ public class MainActivity extends AppCompatActivity implements NotesAdapter.Note
 
         noteNames.add(0, name += i);
 
-        intent.putExtra("TITLE", name);
-        intent.putExtra("INDEX", noteNames.size() - 1);
-        Log.d("ERIC", "Index sent to NoteActivity");
+        intent.putExtra(EXTRA_TITLE, name);
+        intent.putExtra(EXTRA_INDEX, noteNames.size() - 1);
+        Log.d(TAG, "Index sent to NoteActivity");
         startActivity(intent);
-        Log.d("ERIC", "Activity started");
+        Log.d(TAG, "Activity started");
 
         notesAdapter.notifyItemInserted(0);
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-    Data handling
+    Data Handling
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-    /**
-     * Changes a note's name in the ArrayList
-     *
-     * @param text  new name
-     * @param index index of note in ArrayList
-     */
-    public static void setNoteName(String text, int index) {
-        noteNames.set(index, text);
-    }
 
     /**
      * Loads ArrayList of notes from Shared Preferences
@@ -177,5 +173,27 @@ public class MainActivity extends AppCompatActivity implements NotesAdapter.Note
         String json = gson.toJson(noteNames);
         editor.putString(EDITOR_KEY, json);
         editor.apply();
+    }
+
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    Getters and Setters
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+    public static String getExtraIndex() {
+        return EXTRA_INDEX;
+    }
+
+    public static String getExtraTitle() {
+        return EXTRA_TITLE;
+    }
+
+    /**
+     * Changes a note's name in the ArrayList
+     *
+     * @param text  new name
+     * @param index index of note in ArrayList
+     */
+    public static void setNoteName(String text, int index) {
+        noteNames.set(index, text);
     }
 }
