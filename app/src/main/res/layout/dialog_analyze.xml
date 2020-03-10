@@ -4,13 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingStart="?dialogPreferredPadding"
+    android:paddingEnd="?dialogPreferredPadding">
 
     <TextView
         android:id="@+id/tV_wordCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/words"
+        android:textAlignment="viewStart"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/tV_sentenceCount"
         app:layout_constraintStart_toStartOf="@id/tV_sentenceCount"
@@ -53,7 +56,6 @@
         android:textSize="25sp"
         app:layout_constraintBaseline_toBaselineOf="@id/tV_sentenceCount"
         app:layout_constraintBottom_toBottomOf="@+id/tV_sentenceCount"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tV_sentenceCount"
         app:layout_constraintTop_toTopOf="@+id/tV_sentenceCount"
         tools:text="12345678" />
