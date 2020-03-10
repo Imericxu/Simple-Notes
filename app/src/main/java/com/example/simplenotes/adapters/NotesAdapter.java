@@ -27,7 +27,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
      * @param noteNames         list of note names
      * @param noteClickListener listener used by the <code>RecyclerView</code>
      */
-    NotesAdapter(Context context, List<String> noteNames, NoteClickListener noteClickListener) {
+    public NotesAdapter(Context context, List<String> noteNames, NoteClickListener noteClickListener) {
         this.context = context;
         this.noteNames = noteNames;
         this.noteClickListener = noteClickListener;

@@ -18,7 +18,7 @@ public class TextAnalysisDialog extends AppCompatDialogFragment {
     private String words;
     private String sentences;
 
-    TextAnalysisDialog(int words, int sentences) {
+    public TextAnalysisDialog(int words, int sentences) {
         this.words = "" + words;
         this.sentences = "" + sentences;
     }
