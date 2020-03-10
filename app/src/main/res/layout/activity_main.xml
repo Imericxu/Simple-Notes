@@ -29,7 +29,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar_main"
             tools:itemCount="4"
-            tools:listitem="@layout/notes_list_item" />
+            tools:listitem="@layout/recycle_notes" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

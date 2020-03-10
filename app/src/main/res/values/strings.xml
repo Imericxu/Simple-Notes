@@ -6,4 +6,6 @@
     <string name="new_name">New Name</string>
     <string name="analyze">Analyze</string>
     <string name="select">Select</string>
+    <string name="words">Words:</string>
+    <string name="sentences">Sentences:</string>
 </resources>

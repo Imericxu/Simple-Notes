@@ -1,11 +1,9 @@
 package com.example.simplenotes.dialogs;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
@@ -28,7 +26,7 @@ public class RenameDialog extends AppCompatDialogFragment {
 
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
 
-        View view = View.inflate(context, R.layout.rename_dialog, null);
+        View view = View.inflate(context, R.layout.dialog_rename, null);
 
         builder.setTitle("Rename");
         builder.setView(view);

@@ -29,7 +29,7 @@ public class TextAnalysisDialog extends AppCompatDialogFragment {
         Context context = requireContext();
 
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
-        View view = View.inflate(context, R.layout.analyze_dialog, null);
+        View view = View.inflate(context, R.layout.dialog_analyze, null);
         builder.setTitle("Text Analysis");
         builder.setView(view);
         builder.setNeutralButton("OK", null);
