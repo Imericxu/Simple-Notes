@@ -10,6 +10,8 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.simplenotes.dialogs.RenameDialog;
+import com.example.simplenotes.dialogs.TextAnalysisDialog;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import java.io.BufferedReader;
@@ -20,7 +22,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class NoteActivity extends AppCompatActivity implements RenameDialog.ExampleDialogListener {
 

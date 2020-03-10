@@ -1,4 +1,4 @@
-package com.example.simplenotes;
+package com.example.simplenotes.dialogs;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.example.simplenotes.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class RenameDialog extends AppCompatDialogFragment {

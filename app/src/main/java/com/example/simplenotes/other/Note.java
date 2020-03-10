@@ -1,4 +1,4 @@
-package com.example.simplenotes;
+package com.example.simplenotes.other;
 
 public class Note {
     private String name;
