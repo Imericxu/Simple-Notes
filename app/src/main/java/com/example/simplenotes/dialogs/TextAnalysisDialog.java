@@ -32,7 +32,7 @@ public class TextAnalysisDialog extends AppCompatDialogFragment {
         View view = View.inflate(context, R.layout.dialog_analyze, null);
         builder.setTitle("Text Analysis");
         builder.setView(view);
-        builder.setNeutralButton("OK", null);
+        builder.setPositiveButton("OK", null);
 
         TextView wordCount = view.findViewById(R.id.tV_wordNumber);
         TextView sentenceCount = view.findViewById(R.id.tV_sentenceNumber);
