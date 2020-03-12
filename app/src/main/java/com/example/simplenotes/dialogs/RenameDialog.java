@@ -5,12 +5,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.example.simplenotes.MainActivity;
 import com.example.simplenotes.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -22,7 +26,7 @@ public class RenameDialog extends AppCompatDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        Context context = requireContext();
+        final Context context = requireContext();
 
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
 
@@ -32,19 +36,47 @@ public class RenameDialog extends AppCompatDialogFragment {
         builder.setView(view);
 
         builder.setNegativeButton("Cancel", null);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String newName = nameInput.getText().toString();
-                listener.applyText(newName);
-            }
-        });
+        builder.setPositiveButton("OK", null);
 
         nameInput = view.findViewById(R.id.editText_newName);
 
-        return builder.create();
-    }
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button posButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                posButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String newName = nameInput.getText().toString();
 
+                        boolean validName = true;
+
+                        if (newName.length() != 0) {
+                            for (String noteName : MainActivity.noteNames) {
+                                if (newName.equals(noteName)) {
+                                    validName = false;
+                                    break;
+                                }
+                            }
+
+                            if (validName) {
+                                listener.applyText(newName);
+                                dismiss();
+                            }
+                            else {
+                                Toast.makeText(context, "Name taken", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        Toast.makeText(context, "Empty name!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        return alertDialog;
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
