@@ -1,6 +1,7 @@
 package com.example.simplenotes.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.simplenotes.MainActivity;
+import com.example.simplenotes.NoteActivity;
 import com.example.simplenotes.R;
 
 import java.util.List;
@@ -20,17 +23,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
 
     private Context context;
     private List<String> noteNames;
-    private NoteClickListener noteClickListener;
 
     /**
-     * @param context           context of the class containing the view
-     * @param noteNames         list of note names
-     * @param noteClickListener listener used by the <code>RecyclerView</code>
+     * @param context   context of the class containing the view
+     * @param noteNames list of note names
      */
-    public NotesAdapter(Context context, List<String> noteNames, NoteClickListener noteClickListener) {
+    public NotesAdapter(Context context, List<String> noteNames) {
         this.context = context;
         this.noteNames = noteNames;
-        this.noteClickListener = noteClickListener;
     }
 
     @NonNull
@@ -38,7 +38,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.recycle_notes, parent, false);
-        return new MyViewHolder(view, noteClickListener);
+        return new MyViewHolder(view);
     }
 
     @Override
@@ -52,27 +52,25 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
         return noteNames.size();
     }
 
-    public interface NoteClickListener {
-
-        void onNoteClicked(int position);
-    }
-
-    static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView title;
-        private NoteClickListener noteClickListener;
 
-        MyViewHolder(@NonNull View itemView, NoteClickListener noteClickListener) {
+        MyViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.tV_noteName);
 
-            this.noteClickListener = noteClickListener;
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            noteClickListener.onNoteClicked(getAdapterPosition());
+            int position = getAdapterPosition();
+            String selectedNote = MainActivity.noteNames.get(getAdapterPosition());
+            Intent intent = new Intent(context, NoteActivity.class);
+            intent.putExtra(MainActivity.getExtraTitle(), selectedNote);
+            intent.putExtra(MainActivity.getExtraIndex(), position);
+            context.startActivity(intent);
         }
     }
 }

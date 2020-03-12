@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Main screen of app; contains the list of notes. There's a FAB that you can click to create a new note.
  */
-public class MainActivity extends AppCompatActivity implements NotesAdapter.NoteClickListener {
+public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "ERIC";
     private static final String EXTRA_INDEX = "index";
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements NotesAdapter.Note
         //** Create RecyclerView ************************************
         // Create list
         RecyclerView rV_notesList = findViewById(R.id.rV_notesList);
-        notesAdapter = new NotesAdapter(this, noteNames, this);
+        notesAdapter = new NotesAdapter(this, noteNames);
         rV_notesList.setAdapter(notesAdapter);
         rV_notesList.setLayoutManager(new LinearLayoutManager(rV_notesList.getContext()));
 
@@ -103,20 +103,6 @@ public class MainActivity extends AppCompatActivity implements NotesAdapter.Note
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     Touch interactions
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-    /**
-     * Opens the corresponding note when it is clicked
-     *
-     * @param position index of note in ArrayList
-     */
-    @Override
-    public void onNoteClicked(int position) {
-        String selectedNote = noteNames.get(position);
-        Intent intent = new Intent(this, NoteActivity.class);
-        intent.putExtra(EXTRA_TITLE, selectedNote);
-        intent.putExtra(EXTRA_INDEX, position);
-        startActivity(intent);
-    }
 
     /**
      * Creates a new note (called by FAB)
