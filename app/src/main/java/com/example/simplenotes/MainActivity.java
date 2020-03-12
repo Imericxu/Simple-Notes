@@ -64,10 +64,10 @@ public class MainActivity extends AppCompatActivity {
         rV_notesList.setLayoutManager(new LinearLayoutManager(rV_notesList.getContext()));
         registerForContextMenu(rV_notesList);
 
-        // Add dividers between notes
-        DividerItemDecoration itemDecoration = new DividerItemDecoration(rV_notesList.getContext(),
-                LinearLayout.VERTICAL);
-        rV_notesList.addItemDecoration(itemDecoration);
+//        // Add dividers between notes
+//        DividerItemDecoration itemDecoration = new DividerItemDecoration(rV_notesList.getContext(),
+//                LinearLayout.VERTICAL);
+//        rV_notesList.addItemDecoration(itemDecoration);
     }
 
     /**
