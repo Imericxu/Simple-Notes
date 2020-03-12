@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         notesAdapter = new NotesAdapter(this, noteNames);
         rV_notesList.setAdapter(notesAdapter);
         rV_notesList.setLayoutManager(new LinearLayoutManager(rV_notesList.getContext()));
+        registerForContextMenu(rV_notesList);
 
         // Add dividers between notes
         DividerItemDecoration itemDecoration = new DividerItemDecoration(rV_notesList.getContext(),
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
+        inflater.inflate(R.menu.activity_main, menu);
         return true;
     }
 
