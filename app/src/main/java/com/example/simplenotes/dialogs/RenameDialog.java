@@ -68,8 +68,9 @@ public class RenameDialog extends AppCompatDialogFragment {
                                 Toast.makeText(context, "Name taken", Toast.LENGTH_SHORT).show();
                             }
                         }
-
-                        Toast.makeText(context, "Empty name!", Toast.LENGTH_SHORT).show();
+                        else {
+                            Toast.makeText(context, "Empty name!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }
