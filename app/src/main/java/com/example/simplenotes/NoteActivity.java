@@ -90,6 +90,25 @@ public class NoteActivity extends AppCompatActivity implements RenameDialog.Exam
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
     /**
+     * Saves text to respective .txt file
+     *
+     * @throws IOException
+     */
+    private void save() throws IOException {
+        FileOutputStream fOS = null;
+
+        try {
+            fOS = openFileOutput(title, MODE_PRIVATE);
+            fOS.write(note.getText().toString().getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            assert fOS != null;
+            fOS.close();
+        }
+    }
+
+    /**
      * Loads text from respective .txt file
      */
     private void load() {
@@ -109,25 +128,6 @@ public class NoteActivity extends AppCompatActivity implements RenameDialog.Exam
             note.setText(sb.toString());
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    /**
-     * Saves text to respective .txt file
-     *
-     * @throws IOException
-     */
-    private void save() throws IOException {
-        FileOutputStream fOS = null;
-
-        try {
-            fOS = openFileOutput(title, MODE_PRIVATE);
-            fOS.write(note.getText().toString().getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            assert fOS != null;
-            fOS.close();
         }
     }
 
