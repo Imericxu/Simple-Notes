@@ -3,7 +3,6 @@ package com.example.simplenotes.dialogs;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,12 +22,11 @@ public class RenameDialog extends AppCompatDialogFragment {
 
     private EditText nameInput;
     private ExampleDialogListener listener;
-    private final Context context = requireContext();
-    private final MediaPlayer errorSound = MediaPlayer.create(context, R.raw.error_sound);
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        final Context context = requireContext();
 
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
 
@@ -68,12 +66,10 @@ public class RenameDialog extends AppCompatDialogFragment {
                             }
                             else {
                                 Toast.makeText(context, "Name taken", Toast.LENGTH_SHORT).show();
-                                errorSound.start();
                             }
                         }
 
                         Toast.makeText(context, "Empty name!", Toast.LENGTH_SHORT).show();
-                        errorSound.start();
                     }
                 });
             }
